@@ -1,0 +1,15 @@
+# Arquivos de Ambiente
+.env
+
+# Artefatos do Python
+__pycache__/
+*.pyc
+
+# Banco de dados do Django
+db.sqlite3
+
+# Artefatos do core (screenshots)
+*.png
+
+# Dependências
+/venv/

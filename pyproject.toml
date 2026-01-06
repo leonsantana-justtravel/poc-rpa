@@ -1,0 +1,68 @@
+[tool.ruff]
+line-length = 88
+target-version = "py310"
+
+# Ignorar arquivos e pastas que não precisam de lint
+exclude = [
+    ".git",
+    ".venv",
+    "venv",
+    "__pycache__",
+    "migrations",
+    "node_modules",
+    "static",
+    "media",
+]
+
+# Configurações gerais de lint
+[tool.ruff.lint]
+select = [
+    "E",   # pycodestyle (erros de estilo)
+    "F",   # pyflakes (erros de lógica/imports)
+    "I",   # isort (organização de imports)
+    "B",   # flake8-bugbear (bugs e práticas ruins)
+    "C4",  # flake8-comprehensions (otimização de list/set/dict comprehensions)
+    "UP",  # pyupgrade (modernização de código p/ nova versão do Python)
+    "DJ",  # flake8-django (melhores práticas específicas do Django)
+    "S",   # flake8-bandit (segurança)
+    "N",   # pep8-naming (convenções de nomenclatura)
+    "Q",   # flake8-quotes (padronização de aspas)
+    "T20", # flake8-print (print statements)
+    "RET", # flake8-return (consistência nos returns)
+    "ARG", # flake8-unused-arguments
+    "TRY", # tryceratops (boas práticas em tratamento de exceções)
+]
+
+# Regras que podem ser ignoradas
+ignore = [
+    "E501",  # comprimento de linha (deixamos flexível)
+    "S101",  # uso de assert em testes
+]
+
+# Regras específicas
+unfixable = [
+    "F401",  # não remover imports não usados automaticamente
+]
+
+# Configuração de isort via Ruff
+[tool.ruff.lint.isort]
+known-first-party = ["core", "config"]
+combine-as-imports = true
+force-single-line = false
+lines-after-imports = 2
+
+# Configurações de formatação
+[tool.ruff.format]
+quote-style = "double"
+indent-style = "space"
+skip-magic-trailing-comma = false
+line-ending = "lf"
+docstring-code-format = true
+docstring-code-line-length = "dynamic"
+
+[tool.ruff.lint.per-file-ignores]
+# manage.py: permitir print/logging e ignorar TRY003 (mensagem longa em raise)
+"manage.py" = ["T20", "TRY003"]
+
+# migrations: ignorar imports não usados e linhas longas
+"*/migrations/*" = ["E501", "F401"]
