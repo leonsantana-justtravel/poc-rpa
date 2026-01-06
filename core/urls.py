@@ -1,8 +1,8 @@
 from django.urls import path
 
-from .views import View
+from core.views.rpa_views import TriggerRPAView
 
 
 urlpatterns = [
-    path("view/", View.as_view(), name="view"),
+    path("rpa/test/", TriggerRPAView.as_view(), name="rpa-test"),
 ]
