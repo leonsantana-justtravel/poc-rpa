@@ -1,20 +1,23 @@
-# 1. Base Image: Start from an official image that includes Python and Playwright.
+# 1. Base Image
+# O uso da imagem oficial é perfeito. Ela já contém os navegadores.
 FROM mcr.microsoft.com/playwright/python:v1.55.0-jammy
 
-# 2. Set the working directory inside the container
+# 2. Variáveis de Ambiente (Boas Práticas Django/Python)
+# Impede o Python de criar arquivos .pyc desnecessários no container
+ENV PYTHONDONTWRITEBYTECODE=1
+# Garante que os logs do Django apareçam instantaneamente no console do Docker
+ENV PYTHONUNBUFFERED=1
+
 WORKDIR /app
 
-# 3. Copy the dependencies file to the container
+# 3. Dependências
 COPY requirements.txt .
+# --no-cache-dir mantém a imagem leve
+RUN pip install --no-cache-dir -r requirements.txt
 
-# 4. Install Python dependencies
-RUN pip install -r requirements.txt
-
-# 5. Copy the rest of the project's source code into the container
+# 4. Código Fonte
 COPY . .
 
-# 6. Expose the port that Django will use
 EXPOSE 8000
 
-# 7. Command to start the application when the container runs
 CMD ["python", "manage.py", "runserver", "0.0.0.0:8000"]
