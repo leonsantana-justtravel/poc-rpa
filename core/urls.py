@@ -1,8 +1,9 @@
 from django.urls import path
 
-from core.views.rpa_views import TriggerRPAView
+from core.views.rpa_views import TriggerRPAView  # noqa: F401
+from core.views.voucher_statue_liberty import VoucherStatueLibertyView
 
 
 urlpatterns = [
-    path("rpa/test/", TriggerRPAView.as_view(), name="rpa-test"),
+    path("voucher/statue-liberty/", VoucherStatueLibertyView.as_view()),
 ]
